@@ -1,0 +1,8 @@
+---
+all:
+  hosts:
+    pe-16g-esxi01.demo.local:
+      ansible_host: address of the server from idrac
+  vars:
+    ansible_user: root
+    ansible_password: root password
