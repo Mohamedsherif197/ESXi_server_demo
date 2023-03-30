@@ -1,0 +1,10 @@
+---
+vcenter_hostname: "remove and add ip address of vcenter"
+vcenter_datacenter: remove and add vcenter datacenter name"
+vm_count: 114
+vcenter_validate_certs: false
+vcenter_username: "remove and add email to login vcenter"
+vcenter_password: "remove and addd vcenter password"
+vm_name: "myVM"
+vcenter_destination_folder: "/{{ vcenter_datacenter }}/vm"
+vm_template: "remove and add the name of the VM template you want to create vms from"
