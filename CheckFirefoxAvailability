@@ -1,0 +1,7 @@
+$firefoxPath = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\firefox.exe' -ErrorAction SilentlyContinue).'(default)'
+
+if ($firefoxPath -ne $null) {
+    Write-Host "Mozilla Firefox is installed. Path: $firefoxPath"
+} else {
+    Write-Host "Mozilla Firefox is not installed."
+}
