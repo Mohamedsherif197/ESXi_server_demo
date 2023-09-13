@@ -4,6 +4,7 @@ if ($firefoxPath -ne $null) {
     Write-Host "Mozilla Firefox is installed. Path: $firefoxPath"
 } else {
     Write-Host "Mozilla Firefox is not installed."
-    Invoke-WebRequest "https://ftp.mozilla.org/pub/firefox/releases/116.0/win64/en-US/Firefox%20Setup%20116.0.exe" -OutFile "firefoxSetup.exe"
+    Invoke-WebRequest "https://ftp.mozilla.org/pub/firefox/releases/116.0/win64/en-US/Firefox%20Setup%20116.0.exe" -OutFile "FirefoxInstaller.exe"
+    cd $Home\Downloads
     Start-Process -FilePath "FirefoxInstaller.exe" -ArgumentList "/S" -Wait
 }
