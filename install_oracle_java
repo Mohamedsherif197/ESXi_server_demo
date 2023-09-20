@@ -1,0 +1,3 @@
+.\jdk-8u271-windows-x64.exe
+[Environment]::SetEnvironmentVariable('JAVA_HOME', './Downloads/', 'Machine')
+[Environment]::SetEnvironmentVariable('Path', "$env:Path;./Downloads/", 'Machine')
