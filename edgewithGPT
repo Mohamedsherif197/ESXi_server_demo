@@ -6,3 +6,5 @@ Start-BitsTransfer -Source $url -Destination $output
 Start-Process -FilePath $output -ArgumentList "--silent --install" -Wait
 
 Get-AppxPackage -Name Microsoft.MicrosoftEdge
+
+https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100
