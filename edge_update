@@ -23,3 +23,33 @@ if ($edgePaths.Count -gt 0) {
 else {
     Write-Host "Microsoft Edge Chromium is not installed."
 }
+
+
+#check and install the latest ME:
+
+
+
+$version = "116.0.1938.81"
+
+# Check if the specific version is already installed
+$installedVersion = (Get-AppxPackage -Name Microsoft.MicrosoftEdge).Version
+if ($installedVersion -eq $version) {
+    Write-Host "Microsoft Edge version $version is already installed."
+}
+else {
+    # Uninstall the currently installed version
+    Get-AppxPackage -Name Microsoft.MicrosoftEdge | Remove-AppxPackage
+
+    # Download the specific version from Microsoft servers
+    $url = "https://go.microsoft.com/fwlink/p/?linkid=2108830"
+    $outputFile = "$env:TEMP\MicrosoftEdgeInstaller.exe"
+    Invoke-WebRequest -Uri $url -OutFile $outputFile
+
+    # Install the specific version
+    Start-Process -FilePath $outputFile -ArgumentList "--do-not-launch-edge", "--install", "--system-level" -Wait
+
+    # Clean up the downloaded installer
+    Remove-Item $outputFile
+
+    Write-Host "Microsoft Edge version $version has been successfully installed."
+}
