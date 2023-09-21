@@ -1,10 +1,7 @@
-$url = "https://go.microsoft.com/fwlink/?linkid=2069324"
-$output = "$env:USERPROFILE\Downloads\MicrosoftEdgeChromiumInstaller.exe"
-Import-Module BitsTransfer
-Start-BitsTransfer -Source $url -Destination $output
 
-Start-Process -FilePath $output -ArgumentList "--silent --install" -Wait
 
-Get-AppxPackage -Name Microsoft.MicrosoftEdge
+Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100" -OutFile "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe"
 
-https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100
+Start-Process -FilePath "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe" -ArgumentList "/S" -Wait
+
+Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Mozilla Firefox%'"
