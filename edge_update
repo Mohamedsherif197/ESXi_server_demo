@@ -64,3 +64,42 @@ Invoke-WebRequest -Uri $downloadUrl -OutFile $savePath
 
 AppXPackage -Name Microsoft.MicrosoftEdge | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register “$($_.InstallLocation)\AppXManifest.xml”}
 
+-------------------------------------------
+
+Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2108834" -OutFile "$env:USERPROFILE\Downloads\EdgeChromiumInstaller.exe"
+Start-Process -FilePath "$env:USERPROFILE\Downloads\EdgeChromiumInstaller.exe" -Args "--do-not-launch-chrome --do-not-register-for-update" -Wait
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
