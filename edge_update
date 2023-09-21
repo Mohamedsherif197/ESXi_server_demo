@@ -60,3 +60,7 @@ $downloadUrl = "https://go.microsoft.com/fwlink/?linkid=2108834"
 $savePath = "C:\Downloads\EdgeChromiumInstaller.exe"
 Invoke-WebRequest -Uri $downloadUrl -OutFile $savePath
 
+-------------------------------------------------------------------------------------
+
+AppXPackage -Name Microsoft.MicrosoftEdge | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register “$($_.InstallLocation)\AppXManifest.xml”}
+
