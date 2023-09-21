@@ -1,4 +1,8 @@
-Get-AppxPackage -Name Microsoft.MicrosoftEdge
-Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2069324" -OutFile "$env:USERPROFILE\Downloads\MicrosoftEdgeChromiumInstaller.exe"
-Start-Process -FilePath "$env:USERPROFILE\Downloads\MicrosoftEdgeChromiumInstaller.exe" -Wait
+$url = "https://go.microsoft.com/fwlink/?linkid=2069324"
+$output = "$env:USERPROFILE\Downloads\MicrosoftEdgeChromiumInstaller.exe"
+Import-Module BitsTransfer
+Start-BitsTransfer -Source $url -Destination $output
+
+Start-Process -FilePath $output -ArgumentList "--silent --install" -Wait
+
 Get-AppxPackage -Name Microsoft.MicrosoftEdge
