@@ -5,3 +5,30 @@ Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=
 Start-Process -FilePath "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe" -ArgumentList "/S" -Wait
 
 Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Mozilla Firefox%'"
+
+
+$installerPath = "C:\Path\to\installer.exe"
+
+# Create a process start info object
+$psi = New-Object System.Diagnostics.ProcessStartInfo
+$psi.FileName = $installerPath
+$psi.Arguments = "/S"  # Specify any silent installation arguments if available
+
+# Set the process start info properties to run the installation silently
+$psi.UseShellExecute = $false
+$psi.RedirectStandardOutput = $true
+$psi.RedirectStandardError = $true
+$psi.CreateNoWindow = $true
+
+# Start the installation process
+$process = [System.Diagnostics.Process]::Start($psi)
+
+# Wait for the process to complete
+$process.WaitForExit()
+
+# Check the exit code to determine if the installation was successful
+if ($process.ExitCode -eq 0) {
+    Write-Output "Installation completed successfully."
+} else {
+    Write-Output "Installation failed with exit code $($process.ExitCode)."
+}
