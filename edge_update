@@ -53,3 +53,10 @@ else {
 
     Write-Host "Microsoft Edge version $version has been successfully installed."
 }
+
+-----------------------------------------------------------------------------------------
+New-Item -ItemType Directory -Path C:\Downloads
+$downloadUrl = "https://go.microsoft.com/fwlink/?linkid=2108834"
+$savePath = "C:\Downloads\EdgeChromiumInstaller.exe"
+Invoke-WebRequest -Uri $downloadUrl -OutFile $savePath
+
