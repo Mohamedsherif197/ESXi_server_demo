@@ -1,0 +1,25 @@
+To get current version of microsoft edge:
+
+Get-AppxPackage -Name Microsoft.MicrosoftEdge | Select-Object -Property Name, Version
+
+
+
+Update microsoft edge chromium:
+
+$appInstallerURL = "https://aka.ms/msedge-ia-msi"
+$installerPath = "$env:TEMP\EdgeChromiumInstaller.msi"
+Invoke-WebRequest -Uri $appInstallerURL -OutFile $installerPath
+Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$installerPath`" /qn /norestart" -Wait
+
+
+check if installed:
+
+$edgePaths = Get-ChildItem "C:\Program Files (x86)\Microsoft\Edge\Application" -Name -Directory | Sort-Object -Descending
+if ($edgePaths.Count -gt 0) {
+    $latestVersionPath = Join-Path "C:\Program Files (x86)\Microsoft\Edge\Application" $edgePaths[0]
+    $latestVersion = (Get-ItemProperty -Path (Join-Path $latestVersionPath "Installer\") -Name "Version").Version
+    Write-Host "Microsoft Edge Chromium is installed. Version: $latestVersion"
+}
+else {
+    Write-Host "Microsoft Edge Chromium is not installed."
+}
