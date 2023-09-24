@@ -35,14 +35,7 @@ Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
 # Clean up the installer file
 Remove-Item $installerPath
 
-
-$installedApps = Get-WmiObject -Class Win32_Product | Select-Object -Property Name, Version
-
-foreach ($app in $installedApps) {
-    Write-Output "Name: $($app.Name)"
-    Write-Output "Version: $($app.Version)"
-    Write-Output "------------------------"
-}
+====================
 
 $uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
                 Where-Object { $_.DisplayName -like "*WinRAR*" }
