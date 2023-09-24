@@ -52,3 +52,7 @@ foreach ($key in $uninstallKeys) {
     Write-Output "Version: $($key.DisplayVersion)"
     Write-Output "------------------------"
 }
+
+if ($uninstallKeys) {
+    Write-Output "Okay"
+}
