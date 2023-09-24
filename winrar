@@ -1,0 +1,7 @@
+$winrar = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like 'WinRAR*' }
+
+if ($winrar) {
+    Write-Output "WinRAR is installed."
+} else {
+    Write-Output "WinRAR is not installed."
+}
