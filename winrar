@@ -47,12 +47,13 @@ foreach ($app in $installedApps) {
 $uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
                 Where-Object { $_.DisplayName -like "*WinRAR*" }
 
-foreach ($key in $uninstallKeys) {
-    Write-Output "Name: $($key.DisplayName)"
-    Write-Output "Version: $($key.DisplayVersion)"
-    Write-Output "------------------------"
-}
-
 if ($uninstallKeys) {
+    foreach ($key in $uninstallKeys) {
+        Write-Output "Name: $($key.DisplayName)"
+        Write-Output "Version: $($key.DisplayVersion)"
+        Write-Output "------------------------"
+    }
     Write-Output "Okay"
+} else {
+    Write-Output "Not Okay"
 }
