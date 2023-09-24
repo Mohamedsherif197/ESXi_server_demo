@@ -21,3 +21,16 @@ if ($winrarInstalled) {
 } else {
     Write-Output "WinRAR is not installed."
 }
+
+
+$downloadUrl = "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-623.exe"
+$installerPath = "$env:TEMP\winrar-x64-6.23.exe"
+
+# Download WinRAR installer
+Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+# Install WinRAR
+Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+
+# Clean up the installer file
+Remove-Item $installerPath
