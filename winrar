@@ -5,3 +5,19 @@ if ($winrar) {
 } else {
     Write-Output "WinRAR is not installed."
 }
+
+
+
+$winrarInstalled = $false
+$winrarPath = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*").PSChildName | ForEach-Object {
+    if ($_ -match "WinRAR") {
+        $winrarInstalled = $true
+        break
+    }
+}
+
+if ($winrarInstalled) {
+    Write-Output "WinRAR is installed."
+} else {
+    Write-Output "WinRAR is not installed."
+}
