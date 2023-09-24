@@ -1,39 +1,3 @@
-$winrar = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like 'WinRAR*' }
-
-if ($winrar) {
-    Write-Output "WinRAR is installed."
-} else {
-    Write-Output "WinRAR is not installed."
-}
-
-
-
-$winrarInstalled = $false
-$winrarPath = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*").PSChildName | ForEach-Object {
-    if ($_ -match "WinRAR") {
-        $winrarInstalled = $true
-        break
-    }
-}
-
-if ($winrarInstalled) {
-    Write-Output "WinRAR is installed."
-} else {
-    Write-Output "WinRAR is not installed."
-}
-
-
-$downloadUrl = "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-623.exe"
-$installerPath = "$env:TEMP\winrar-x64-6.23.exe"
-
-# Download WinRAR installer
-Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
-
-# Install WinRAR
-Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
-
-# Clean up the installer file
-Remove-Item $installerPath
 
 ====================
 law winrar installed yet3emelo upgrade lel latest:
@@ -63,6 +27,11 @@ if ($uninstallKeys) {
     Write-Output "Not Okay"
 }
 
+
+
+
+
+
 ===================================================================================================================
 #law winrar msh installed yet3emelo install
 
@@ -90,4 +59,39 @@ if ($uninstallKeys) {
 
     # Clean up the installer file
     Remove-Item $installerPath
+}
+
+
+
+
+
+
+
+
+
+
+
+=================================================================
+#install latest winrar if winrar installed on vm
+
+
+$uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
+                Where-Object { $_.DisplayName -like "*WinRAR*" }
+
+if ($uninstallKeys) {
+    foreach ($key in $uninstallKeys) {
+
+        $downloadUrl = "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-623.exe"
+        $installerPath = "$env:TEMP\winrar-x64-6.23.exe"
+
+        # Download WinRAR installer
+        Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+        # Install WinRAR
+        Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+
+        # Clean up the installer file
+        Remove-Item $installerPath
+    }
+   
 }
