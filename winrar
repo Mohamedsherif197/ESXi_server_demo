@@ -36,6 +36,7 @@ Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
 Remove-Item $installerPath
 
 ====================
+law winrar installed yet3emelo upgrade lel latest:
 
 $uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
                 Where-Object { $_.DisplayName -like "*WinRAR*" }
@@ -60,4 +61,33 @@ if ($uninstallKeys) {
     Write-Output "Okay"
 } else {
     Write-Output "Not Okay"
+}
+
+===================================================================================================================
+#law winrar msh installed yet3emelo install
+
+$uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
+                Where-Object { $_.DisplayName -like "*WinRAR*" }
+
+if ($uninstallKeys) {
+    foreach ($key in $uninstallKeys) {
+        Write-Output "Name: $($key.DisplayName)"
+        Write-Output "Version: $($key.DisplayVersion)"
+        Write-Output "------------------------"
+
+    }
+    Write-Output "Okay"
+} else {
+    Write-Output "Not Okay"
+    $downloadUrl = "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-623.exe"
+    $installerPath = "$env:TEMP\winrar-x64-6.23.exe"
+
+     # Download WinRAR installer
+    Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+    # Install WinRAR
+    Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+
+    # Clean up the installer file
+    Remove-Item $installerPath
 }
