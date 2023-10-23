@@ -1,22 +1,7 @@
-$winrarPath = Get-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*'| Where-Object { $_.DisplayName -like 'WinRAR*' } | Select-Object -ExpandProperty UninstallString
-
-if ($winrarPath) {
-    Write-Host "WinRAR is installed."
-    Write-Host "WinRAR Path: $winrarPath"
-} else {
-    Write-Host "WinRAR is not installed."
-}
-
-
-
-
-#install latest winrar if winrar installed on vm
-
-
 $uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
                 Where-Object { $_.DisplayName -like "*WinRAR*" }
 
-
+if ($uninstallKeys) {
     foreach ($key in $uninstallKeys) {
 
         $downloadUrl = "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-624.exe"
@@ -31,31 +16,5 @@ $uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\Curren
         # Clean up the installer file
         Remove-Item $installerPath
     }
-
-================================================================================================
-
-
-$installerPath = "C:\Path\to\WinRARInstaller.exe" # Replace with the actual path to the WinRAR installer file
-
-# Check if WinRAR is already installed
-$winrarPath = Get-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*' | Where-Object { $_.DisplayName -like 'WinRAR*' } | Select-Object -ExpandProperty UninstallString
-
-if ($winrarPath) {
-    Write-Host "WinRAR is already installed."
-    Write-Host "WinRAR Path: $winrarPath"
-} else {
-    # Install WinRAR
-    Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
-
-    # Verify installation
-    $winrarPath = Get-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*' | Where-Object { $_.DisplayName -like 'WinRAR*' } | Select-Object -ExpandProperty UninstallString
-
-    if ($winrarPath) {
-        Write-Host "WinRAR has been installed successfully."
-        Write-Host "WinRAR Path: $winrarPath"
-    } else {
-        Write-Host "Failed to install WinRAR."
-    }
-}
    
 
