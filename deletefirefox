@@ -23,3 +23,13 @@ Start-Process -FilePath "UninstallString" -ArgumentList "/S" -Wait
 
 $firefox = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Firefox*" }
 $firefox.Uninstall()
+============================================================================================================================
+
+$firefoxPath = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\firefox.exe' -ErrorAction SilentlyContinue).'(default)'
+
+if ($firefoxPath -ne $null) {
+    Write-Host "Mozilla Firefox is installed. Path: $firefoxPath"
+    Start-Process -FilePath $firefoxPath -Wait
+} else {
+    Write-Host "Mozilla Firefox is not installed."
+}
