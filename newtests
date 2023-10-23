@@ -17,4 +17,4 @@ if ($uninstallKeys) {
         Remove-Item $installerPath
     }
    
-
+}
