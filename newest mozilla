@@ -21,3 +21,12 @@ if ($firefoxPath) {
 } else {
     Write-Host "Mozilla Firefox is not installed or the installation path could not be found."
 }
+=========================================================================================
+$installerPath = "C:\Path\to\Installer.exe"
+$uninstallString = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
+                    Where-Object { $_.DisplayName -like "*Your Application Name*" }).UninstallString
+if ($uninstallString) {
+    Start-Process -FilePath $uninstallString -ArgumentList "/S" -Wait
+} else {
+    Write-Host "Uninstall string not found."
+}
