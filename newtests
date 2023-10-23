@@ -39,3 +39,8 @@ if ($winrarPath) {
 } else {
     Write-Host "WinRAR is not installed."
 }
+=======================================================================================================
+Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*WinRAR*"}
+```
+
+If WinRAR is installed, you will see the details of the WinRAR installation.
