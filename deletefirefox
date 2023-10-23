@@ -47,5 +47,14 @@ if (Test-Path $firefoxPath) {
 ============================================================================================================================
 Start-Process -FilePath $exePath -ArgumentList "/uninstall", "/quiet" -Wait
 
+==================================================================================================================================================================
+$LocalUsers = (Get-ChildItem -Path "C:\Users").name
 
+# Uninstalling from Program Files
+if (Test-Path "${env:ProgramFiles(x86)}\Mozilla Firefox\uninstall\helper.exe"){
+    Start-Process -FilePath "${env:ProgramFiles(x86)}\Mozilla Firefox\uninstall\helper.exe" -ArgumentList '/S' -Verbose #-ErrorAction SilentlyContinue
+}
+if (Test-Path "${env:ProgramFiles}\Mozilla Firefox\uninstall\helper.exe"){
+    Start-Process -FilePath "${env:ProgramFiles}\Mozilla Firefox\uninstall\helper.exe" -ArgumentList '/S' -Verbose #-ErrorAction SilentlyContinue
+}
 
