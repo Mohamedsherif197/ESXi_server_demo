@@ -5,3 +5,10 @@ if ($firefoxPath) {
 } else {
     Write-Host "Mozilla Firefox is not installed or the installation path could not be found."
 }
+
+
+
+========================================================================
+
+$firefoxPath = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\firefox.exe' -ErrorAction SilentlyContinue).'(default)'
+$firefoxPath
