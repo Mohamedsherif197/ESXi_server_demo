@@ -29,7 +29,7 @@ $firefoxPath = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Current
 
 if ($firefoxPath -ne $null) {
     Write-Host "Mozilla Firefox is installed. Path: $firefoxPath"
-    Start-Process -FilePath $firefoxPath -Wait
+    $firefoxPath.uninstall()
 } else {
     Write-Host "Mozilla Firefox is not installed."
 }
