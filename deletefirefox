@@ -12,3 +12,9 @@ if ($uninstallString) {
 
 $uninstallCommand = (Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Mozilla Firefox*" }).UninstallString
 Start-Process -FilePath $uninstallCommand -ArgumentList "/S" -Wait
+
+============================================================================
+
+cd HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall
+Get-ItemProperty * | Where-Object { $_.DisplayName -like "*Mozilla Firefox*" }
+Start-Process -FilePath "UninstallString" -ArgumentList "/S" -Wait
