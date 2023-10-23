@@ -29,3 +29,30 @@ if ($winrarVersion) {
 }
 ====================================================================================
 
+
+
+$uninstallKeys = Get-ChildItem -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall", "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall" -Recurse |
+    Get-ItemProperty |
+    Where-Object { $_.DisplayName -like "*WinRAR*" }
+
+if ($uninstallKeys) {
+    foreach ($key in $uninstallKeys) {
+        $uninstallString = $key.UninstallString
+        $silentArgs = $key.QuietUninstallString
+
+        if ($silentArgs) {
+            $args = $silentArgs
+        } elseif ($uninstallString) {
+            $args = $uninstallString -replace "/I", "/X" -replace "/i", "/X"
+        }
+
+        if ($args) {
+            Write-Host "Uninstalling WinRAR..."
+            Start-Process -Wait -FilePath $args -ArgumentList "/S"
+            Write-Host "WinRAR has been uninstalled."
+            break
+        }
+    }
+} else {
+    Write-Host "WinRAR is not installed."
+}
