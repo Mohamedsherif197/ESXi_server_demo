@@ -28,37 +28,4 @@ if ($winrarVersion) {
     Write-Host "WinRAR is not installed."
 }
 ====================================================================================
-# check winrar installed or no
 
-
-$winrarPath = Get-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*'| Where-Object { $_.DisplayName -like 'WinRAR*' } | Select-Object -ExpandProperty UninstallString
-
-if ($winrarPath) {
-    Write-Host "WinRAR is installed."
-    Write-Host "WinRAR Path: $winrarPath"
-} else {
-    Write-Host "WinRAR is not installed."
-}
-=======================================================================================================
-Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*WinRAR*"}
-```
-
-If WinRAR is installed, you will see the details of the WinRAR installation.
-
-=========================================================================================================================
-
-# Check if WinRAR is installed
-$winrarInstalled = Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*WinRAR*"}
-
-if ($winrarInstalled) {
-    Write-Host "WinRAR is installed."
-    
-    # Uninstall WinRAR
-    $ProductCode = $winrarInstalled.IdentifyingNumber
-    Write-Host "Uninstalling WinRAR..."
-    Start-Process msiexec.exe -Wait -ArgumentList "/x $ProductCode"
-    Write-Host "WinRAR has been uninstalled."
-}
-else {
-    Write-Host "WinRAR is not installed."
-}
