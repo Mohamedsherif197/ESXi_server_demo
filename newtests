@@ -44,3 +44,21 @@ Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*WinRAR*"}
 ```
 
 If WinRAR is installed, you will see the details of the WinRAR installation.
+
+=========================================================================================================================
+
+# Check if WinRAR is installed
+$winrarInstalled = Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*WinRAR*"}
+
+if ($winrarInstalled) {
+    Write-Host "WinRAR is installed."
+    
+    # Uninstall WinRAR
+    $ProductCode = $winrarInstalled.IdentifyingNumber
+    Write-Host "Uninstalling WinRAR..."
+    Start-Process msiexec.exe -Wait -ArgumentList "/x $ProductCode"
+    Write-Host "WinRAR has been uninstalled."
+}
+else {
+    Write-Host "WinRAR is not installed."
+}
