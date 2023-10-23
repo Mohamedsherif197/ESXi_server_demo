@@ -1,0 +1,10 @@
+$uninstallString = (Get-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*' |
+    Where-Object { $_.DisplayName -like "Mozilla Firefox" }).UninstallString
+
+if ($uninstallString) {
+    Write-Host "Uninstalling Mozilla Firefox..."
+    Start-Process -Wait -FilePath $uninstallString -ArgumentList "/S"
+    Write-Host "Mozilla Firefox has been uninstalled."
+} else {
+    Write-Host "Mozilla Firefox is not installed."
+}
