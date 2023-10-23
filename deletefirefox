@@ -43,3 +43,9 @@ if (Test-Path $firefoxPath) {
 } else {
     Write-Host "Mozilla Firefox is not installed."
 }
+
+============================================================================================================================
+Start-Process -FilePath $exePath -ArgumentList "/uninstall", "/quiet" -Wait
+
+
+
