@@ -27,3 +27,15 @@ if ($winrarVersion) {
 } else {
     Write-Host "WinRAR is not installed."
 }
+====================================================================================
+# check winrar installed or no
+
+
+$winrarPath = Get-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*'| Where-Object { $_.DisplayName -like 'WinRAR*' } | Select-Object -ExpandProperty UninstallString
+
+if ($winrarPath) {
+    Write-Host "WinRAR is installed."
+    Write-Host "WinRAR Path: $winrarPath"
+} else {
+    Write-Host "WinRAR is not installed."
+}
